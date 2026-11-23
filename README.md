@@ -42,18 +42,12 @@ GitHub Actions runs the ParaBank journey on every push to `main` and on demand:
 
 - Workflow: `.github/workflows/cypress.yml`
 - Manual run: **Actions → Cypress → Run workflow**
-- CI starts `parasoft/parabank` in Docker, seeds HSQL (`scripts/seed-parabank.sh`), and sets
-  `CYPRESS_BASE_URL=http://localhost:8080/parabank`
-  (the public host is Cloudflare-protected and blocks GitHub Actions IPs; the image also
-  boots without schema until seeded)
-
-Local runs still default to https://parabank.parasoft.com/parabank. To hit a local container:
+- Target: `https://parabank.parasoft.com/parabank` (`CYPRESS_BASE_URL`)
 
 ```bash
-docker run -d --name parabank -p 8080:8080 -p 9001:9001 parasoft/parabank:latest
-# wait until http://localhost:8080/parabank responds, then:
-./scripts/seed-parabank.sh
-CYPRESS_BASE_URL=http://localhost:8080/parabank npm run cy:run
+npm ci
+npx cypress install
+npm run cy:run
 ```
 
 ## Sample journey (DEMO-1)
