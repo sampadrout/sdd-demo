@@ -38,7 +38,7 @@ Test → Feature / App Action → Command → UI/API → Application
 
 ```typescript
 /**
- * @jira DEMO-1
+ * @jira SDD-1
  * @spec S-1
  * @spec S-2
  */
