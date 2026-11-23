@@ -1,0 +1,53 @@
+# Spec-Driven Development — sdd-demo Constitution
+
+We build **requirements-driven** automation, not click-driven automation. Every test verifies a
+business requirement that traces back to a ticket (or demo AC). This demo targets **ParaBank**.
+
+## 1. The toolchain
+
+OpenSpec (`@fission-ai/openspec`) + Cypress. Use:
+
+| Command | When |
+|---|---|
+| `/opsx:propose` | Start a change + generate planning artifacts |
+| `/opsx:explore` | Think through unclear requirements |
+| `/opsx:apply` | Implement App Actions, selectors, tests |
+| `/opsx:archive` | Finalize and merge specs into source of truth |
+
+## 2. Core principles
+
+1. **Business intent first.** Tests call App Actions (`transferFunds.transfer(...)`), never raw `cy.get`/`cy.click`.
+2. **No Page Object Model.**
+3. **Runtime discovery first.** Inspect the live app before guessing selectors.
+4. **Traceability always.** Ticket ↔ `S-<n>` ↔ test.
+
+## 3. Layered architecture (only allowed direction)
+
+```
+Test → Feature / App Action → Command → UI/API → Application
+```
+
+| Layer | Location |
+|---|---|
+| Tests | `cypress/e2e/**/*.cy.ts` |
+| App Actions | `libs/actions/src/lib/features/<feature>/main.ts` |
+| Selectors | `libs/ui-map/src/lib/*.selectors.ts` |
+| Fixtures | `cypress/fixtures/` |
+
+## 4. Traceability tags
+
+```typescript
+/**
+ * @jira DEMO-1
+ * @spec S-1
+ * @spec S-2
+ */
+describe('Transfer Funds', () => {
+  it('S-1–S-4 logs in and completes a funds transfer', () => { /* ... */ });
+});
+```
+
+## 5. Application under test
+
+- **App:** ParaBank — https://parabank.parasoft.com/parabank
+- Public demo bank (Parasoft). Prefer registering a unique user per run when the shared `john`/`demo` account is unstable.

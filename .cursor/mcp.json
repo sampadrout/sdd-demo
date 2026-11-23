@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cypress": {
+      "command": "npx",
+      "args": ["-y", "@cypress/mcp@latest"]
+    }
+  }
+}

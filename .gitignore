@@ -1,0 +1,22 @@
+node_modules/
+dist/
+.tmp/
+.DS_Store
+*.log
+
+# Cypress artefacts
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+.cypress-cache/
+
+# Local secrets (demo credentials live in fixtures; use env for real projects)
+cypress.env.json
+
+# Generated asset catalog
+openspec/asset-map.md
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json

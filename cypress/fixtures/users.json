@@ -1,0 +1,7 @@
+{
+  "note": "Demo uses Faker-generated unique users at runtime. Prefer env vars for non-public apps.",
+  "sharedDemo": {
+    "username": "john",
+    "password": "demo"
+  }
+}

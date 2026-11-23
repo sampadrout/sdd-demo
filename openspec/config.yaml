@@ -1,0 +1,48 @@
+schema: spec-driven
+
+context: |
+  PROJECT: sdd-demo — Cypress E2E automation demo for Spec-Driven Development.
+  Application under test: ParaBank (https://parabank.parasoft.com/parabank), a public demo online bank.
+
+  GOAL: requirements-driven automation, not click-driven automation.
+  A test exists to verify a business requirement that traces to a ticket / demo AC.
+
+  TECH STACK:
+  - Cypress (TypeScript)
+  - OpenSpec (@fission-ai/openspec)
+  - Faker for synthetic registration data
+  - Direct Cypress commands only — NO Page Object Model
+
+  LAYERED ARCHITECTURE (only allowed dependency direction):
+    Test -> Feature / App Action -> Command -> UI/API -> Application
+  Tests express business intent (e.g. transferFunds.transfer()), never raw cy.get/click.
+
+  WHERE THINGS LIVE:
+  - App Actions:  libs/actions/src/lib/features/<feature>/main.ts
+  - Selectors:    libs/ui-map/src/lib/<area>.selectors.ts  (selectors live ONLY here)
+  - Specs:        cypress/e2e/**/*.cy.ts
+  - Fixtures:     cypress/fixtures/
+
+  SELECTORS: never guessed. Discover against the live app. Prefer name/id/role over brittle CSS.
+  TRACEABILITY: every .cy.ts carries @jira / @spec tags; every it(...) title begins with S-<n>.
+
+  CAPABILITIES (openspec/specs/<capability>/):
+    - transfer-funds
+    - framework-* standards under openspec/specs/
+
+  See .cursor/rules/spec-driven.mdc.
+
+rules:
+  proposal:
+    - "State the originating ticket/demo key in the title and Why."
+    - "Why = business problem; What Changes = automatable acceptance criteria."
+  specs:
+    - "Capability = stable product area. Put delta under changes/<id>/specs/<capability>/spec.md."
+    - "Map each automatable behavior to one '### Requirement:' with an S-<n> id."
+    - "Author WHEN/THEN scenarios — business outcomes, not Cypress steps."
+    - "Classify as JOURNEY (one it spanning S-range) or INDEPENDENT FACETS (separate its)."
+  design:
+    - "Record discovery findings: pages, selectors, App Actions to reuse or add."
+  tasks:
+    - "Order: reuse search → discover selectors → App Actions → .cy.ts → run → repair."
+    - "Journeys = ONE it() with cy.log('S-n') markers; facets = separate its + beforeEach."

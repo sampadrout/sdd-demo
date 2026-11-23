@@ -1,0 +1,18 @@
+{
+  "name": "sdd-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Spec-Driven Development demo — Cypress + OpenSpec against ParaBank",
+  "scripts": {
+    "cy:open": "cypress open --e2e --browser chrome",
+    "cy:run": "cypress run --e2e --browser chrome",
+    "test": "npm run cy:run",
+    "openspec": "openspec"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "^1.3.1",
+    "@faker-js/faker": "^9.6.0",
+    "cypress": "^15.15.0",
+    "typescript": "^5.8.2"
+  }
+}
