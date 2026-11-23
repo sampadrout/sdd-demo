@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  transfer-funds:
-    name: ParaBank transfer-funds journey
+  e2e:
+    name: ParaBank Cypress e2e
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -29,7 +29,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          spec: cypress/e2e/transfer-funds.cy.ts
+          # Match cypress.config.ts specPattern — runs all journeys under e2e/
+          spec: cypress/e2e/**/*.cy.ts
         env:
           CYPRESS_BASE_URL: https://parabank.parasoft.com/parabank
 
