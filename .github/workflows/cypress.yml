@@ -9,15 +9,34 @@ concurrency:
   group: cypress-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # Local ParaBank container — avoids Cloudflare bot challenge on the public host.
+  CYPRESS_BASE_URL: http://localhost:8080/parabank
+
 jobs:
   transfer-funds:
     name: ParaBank transfer-funds journey
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Start ParaBank
+        run: |
+          docker run -d --name parabank -p 8080:8080 parasoft/parabank:latest
+          echo "Waiting for ParaBank..."
+          for i in $(seq 1 60); do
+            if curl -sf -o /dev/null http://localhost:8080/parabank/; then
+              echo "ParaBank is up (attempt $i)"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "ParaBank did not become ready in time"
+          docker logs parabank || true
+          exit 1
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -39,3 +58,7 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: Stop ParaBank
+        if: always()
+        run: docker rm -f parabank || true
