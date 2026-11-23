@@ -83,6 +83,17 @@ npm run cy:run -- --spec cypress/e2e/request-loan.cy.ts
 
 Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.cursor/skills/openspec-*`. Commands: `.cursor/commands/`.
 
+### Cypress MCP
+
+`.cursor/mcp.json` points at the local Cypress MCP (not an npm package):
+
+```text
+/Users/sampadrout/Documents/Cypress_MCP/dist/server.js
+```
+
+If MCP fails to start, confirm that path exists, then reload Cursor MCP / the window.
+
+
 ## Why ParaBank?
 
 Public, always-on bank demo with real multi-step journeys (login → transfer → confirmation) that map cleanly to ticket ACs — without VPN or product credentials.

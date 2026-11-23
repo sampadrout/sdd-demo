@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "cypress": {
-      "command": "npx",
-      "args": ["-y", "@cypress/mcp@latest"]
+      "command": "node",
+      "args": ["/Users/sampadrout/Documents/Cypress_MCP/dist/server.js"]
     }
   }
 }

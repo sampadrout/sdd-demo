@@ -6,6 +6,9 @@
 
 Runtime-discovery step (see `runtime-discovery` + `locator-governance` specs). **Never guess selectors.**
 
+> Cypress MCP is the local server at `/Users/sampadrout/Documents/Cypress_MCP` (wired in `.cursor/mcp.json`). There is no public `@cypress/mcp` npm package.
+
+
 ## Agent instructions
 
 ### Step 1 — Search existing assets first
