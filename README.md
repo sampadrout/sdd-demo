@@ -58,14 +58,30 @@ Jira project **sdd-demo** (`SDD`) on https://sampadrout.atlassian.net holds the 
 
 Demo intake: `/from-jira SDD-1`
 
-## OpenSpec workflow
+**Practice ticket (not yet automated):** [SDD-2](https://sampadrout.atlassian.net/browse/SDD-2) — Request Loan journey.
 
-```bash
-npx openspec new change "my-change"
-# then /opsx:propose → /opsx:apply → /opsx:archive in Cursor
+## OpenSpec / SDD commands (Cursor)
+
+| Command | Purpose |
+|---|---|
+| `/from-jira SDD-2` | Intake — fetch ticket → OpenSpec change + `S-<n>` |
+| `/discover-selectors /requestloan.htm "Request Loan form"` | Live DOM discovery → `libs/ui-map` |
+| `/opsx:propose` | (Optional) invent a change without Jira |
+| `/opsx:apply` | Implement App Actions + journey test |
+| `/opsx:archive` | Merge specs into `openspec/specs/` |
+| `/opsx:explore` | Think through unclear requirements |
+
+Suggested flow for SDD-2:
+
+```text
+/from-jira SDD-2
+/discover-selectors /requestloan.htm "loan amount, down payment, from account, submit"
+/opsx:apply
+npm run cy:run -- --spec cypress/e2e/request-loan.cy.ts
+/opsx:archive
 ```
 
-Cursor rules live in `.cursor/rules/spec-driven.mdc`. Skills under `.cursor/skills/openspec-*`.
+Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.cursor/skills/openspec-*`. Commands: `.cursor/commands/`.
 
 ## Why ParaBank?
 

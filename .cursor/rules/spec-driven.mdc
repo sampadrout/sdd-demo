@@ -9,7 +9,9 @@ OpenSpec (`@fission-ai/openspec`) + Cypress. Use:
 
 | Command | When |
 |---|---|
-| `/opsx:propose` | Start a change + generate planning artifacts |
+| `/from-jira <KEY>` | Intake — ticket → OpenSpec change + `S-<n>` |
+| `/discover-selectors <url> "<thing>"` | Live selector discovery (Cypress MCP) |
+| `/opsx:propose` | Start a change without Jira (optional) |
 | `/opsx:explore` | Think through unclear requirements |
 | `/opsx:apply` | Implement App Actions, selectors, tests |
 | `/opsx:archive` | Finalize and merge specs into source of truth |
