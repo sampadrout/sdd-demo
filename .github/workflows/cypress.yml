@@ -12,6 +12,7 @@ concurrency:
 env:
   # Local ParaBank container — avoids Cloudflare bot challenge on the public host.
   CYPRESS_BASE_URL: http://localhost:8080/parabank
+  PARABANK_CONTAINER: parabank
 
 jobs:
   transfer-funds:
@@ -25,18 +26,33 @@ jobs:
 
       - name: Start ParaBank
         run: |
-          docker run -d --name parabank -p 8080:8080 parasoft/parabank:latest
-          echo "Waiting for ParaBank..."
+          docker run -d --name parabank -p 8080:8080 -p 9001:9001 parasoft/parabank:latest
+          echo "Waiting for Tomcat / ParaBank..."
           for i in $(seq 1 60); do
             if curl -sf -o /dev/null http://localhost:8080/parabank/; then
-              echo "ParaBank is up (attempt $i)"
+              echo "HTTP up (attempt $i)"
+              break
+            fi
+            sleep 2
+          done
+          # HSQL may need a moment after HTTP responds
+          sleep 5
+          # Confirm HSQL port is listening
+          for i in $(seq 1 30); do
+            if (echo > /dev/tcp/127.0.0.1/9001) >/dev/null 2>&1; then
+              echo "HSQL up (attempt $i)"
               exit 0
             fi
             sleep 2
           done
-          echo "ParaBank did not become ready in time"
+          echo "ParaBank HSQL did not become ready"
           docker logs parabank || true
           exit 1
+
+      - name: Seed ParaBank database
+        run: |
+          chmod +x scripts/seed-parabank.sh
+          ./scripts/seed-parabank.sh
 
       - name: Setup Node
         uses: actions/setup-node@v4
