@@ -36,6 +36,13 @@ Open the runner:
 npm run cy:open
 ```
 
+## CI
+
+GitHub Actions runs the ParaBank journey on every push to `main` and on demand:
+
+- Workflow: `.github/workflows/cypress.yml`
+- Manual run: **Actions → Cypress → Run workflow**
+
 ## Sample journey (DEMO-1)
 
 `S-1–S-4` registers a unique customer (Faker), opens **Transfer Funds**, submits a transfer, and asserts **Transfer Complete!**.
