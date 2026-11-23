@@ -38,4 +38,23 @@ export const ParaBankSelectors = {
   transferSubmit: '#transferForm input[type="submit"]',
   transferResult: '#showResult',
   transferResultHeading: '#showResult h1.title',
+
+  // Request loan (confirmed 2026-11-23 against live requestloan.htm)
+  requestLoanNav: '#leftPanel a[href*="requestloan.htm"]',
+  requestLoanForm: '#requestLoanForm',
+  requestLoanHeading: '#requestLoanForm h1.title',
+  loanAmountInput: 'input#amount',
+  loanDownPaymentInput: 'input#downPayment',
+  // from account reuses fromAccountSelect (`select#fromAccountId`)
+  loanApplyButton: '#requestLoanForm input[type="button"][value="Apply Now"]',
+  requestLoanResult: '#requestLoanResult',
+  requestLoanResultHeading: '#requestLoanResult h1.title',
+  loanProviderName: '#loanProviderName',
+  loanResponseDate: '#responseDate',
+  loanStatus: '#loanStatus',
+  loanRequestApproved: '#loanRequestApproved',
+  loanRequestDenied: '#loanRequestDenied',
+  loanDeniedMessage: '#loanRequestDenied p.error',
+  loanNewAccountId: '#newAccountId',
+  requestLoanError: '#requestLoanError',
 } as const;

@@ -12,4 +12,8 @@ export const accounts = {
   openTransferFunds() {
     cy.get(S.transferFundsNav).should('be.visible').click();
   },
+
+  openRequestLoan() {
+    cy.get(S.requestLoanNav).should('be.visible').click();
+  },
 };

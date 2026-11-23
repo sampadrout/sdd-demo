@@ -112,6 +112,8 @@ Working on task 4/7: <task description>
 ...
 
 All tasks complete! You can archive this change with `/opsx:archive`.
+
+**Optional:** If a journey `.cy.ts` exists, run it (or ask). On failure — or whenever you want a heal pass — run `/auto-heal` (or `/auto-heal --after-apply`). Skip when green.
 ```
 
 **Output On Pause (Issue Encountered)**
@@ -161,3 +163,9 @@ This skill supports the "actions on a change" model:
 
 - **Can be invoked anytime**: Before all artifacts are done (if tasks exist), after partial implementation, interleaved with other actions
 - **Allows artifact updates**: If implementation reveals design issues, suggest updating artifacts - not phase-locked, work fluidly
+
+**Optional auto-heal (after apply or on failure)**
+
+- After tasks that author/update a `.cy.ts`, offer: run Cypress now, or `/auto-heal` if the run fails / user wants a heal pass.
+- Do **not** auto-start heal unless the user asked (`/auto-heal`, `/auto-heal --after-apply`) or confirmed the offer.
+- Heal flow lives in `.cursor/commands/auto-heal.md` (Cypress MCP healer tools + ui-map/App Action fixes).

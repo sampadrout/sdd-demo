@@ -7,7 +7,9 @@
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run --e2e --browser chrome",
     "test": "npm run cy:run",
-    "openspec": "openspec"
+    "openspec": "openspec",
+    "context": "npx --yes repomix@latest",
+    "context:compress": "npx --yes repomix@latest --compress"
   },
   "devDependencies": {
     "@fission-ai/openspec": "^1.3.1",

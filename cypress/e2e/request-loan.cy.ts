@@ -1,0 +1,55 @@
+import { faker } from '@faker-js/faker';
+import { auth } from '../../libs/actions/src/lib/features/auth/main';
+import { accounts } from '../../libs/actions/src/lib/features/accounts/main';
+import { requestLoan } from '../../libs/actions/src/lib/features/request-loan/main';
+
+/**
+ * @jira SDD-2
+ * @spec S-1
+ * @spec S-2
+ * @spec S-3
+ * @spec S-4
+ */
+describe('Request Loan', () => {
+  it('S-1–S-4 registers, opens Request Loan, and receives a loan decision', () => {
+    const stamp = `${Date.now()}${faker.string.numeric(4)}`;
+    const customer = {
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      address: faker.location.streetAddress(),
+      city: 'Springfield',
+      state: 'IL',
+      zipCode: '62701',
+      phone: faker.string.numeric(10),
+      ssn: faker.string.numeric(9),
+      // Timestamp keeps usernames unique on ParaBank's shared demo DB.
+      username: `loan${stamp}`.slice(0, 20),
+      password: `Pw${faker.string.alphanumeric(10)}`,
+    };
+    // Modest amounts relative to a freshly registered account balance.
+    const amount = '100';
+    const downPayment = '10';
+
+    cy.log('setup: register unique customer');
+    auth.register(customer);
+    auth.assertNoRegistrationError();
+    auth.assertRegistered(customer.username);
+    cy.get('body').then(($body) => {
+      if ($body.find('#accountTable').length === 0) {
+        cy.contains('#leftPanel a', 'Accounts Overview').click();
+      }
+    });
+    accounts.assertOverviewVisible();
+
+    cy.log('S-1 open Request Loan');
+    accounts.openRequestLoan();
+    requestLoan.assertFormVisible();
+
+    cy.log('S-2 enter loan amount, down payment, from-account');
+    cy.log('S-3 submit loan request');
+    requestLoan.request({ amount, downPayment });
+
+    cy.log('S-4 assert Approved/Denied outcome details');
+    requestLoan.assertDecision();
+  });
+});

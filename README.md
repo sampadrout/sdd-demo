@@ -68,8 +68,10 @@ Demo intake: `/from-jira SDD-1`
 | `/discover-selectors /requestloan.htm "Request Loan form"` | Live DOM discovery → `libs/ui-map` |
 | `/opsx:propose` | (Optional) invent a change without Jira |
 | `/opsx:apply` | Implement App Actions + journey test |
+| `/auto-heal` | Optional — heal failing journey after apply / on Cypress failure |
 | `/opsx:archive` | Merge specs into `openspec/specs/` |
 | `/opsx:explore` | Think through unclear requirements |
+| `/repo-context` | Pack repo into `repomix-output.md` for cheaper agent orientation |
 
 Suggested flow for SDD-2:
 
@@ -78,10 +80,24 @@ Suggested flow for SDD-2:
 /discover-selectors /requestloan.htm "loan amount, down payment, from account, submit"
 /opsx:apply
 npm run cy:run -- --spec cypress/e2e/request-loan.cy.ts
+# if red: /auto-heal   (or /auto-heal cypress/e2e/request-loan.cy.ts)
 /opsx:archive
 ```
 
 Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.cursor/skills/openspec-*`. Commands: `.cursor/commands/`.
+
+### Repo context (Repomix)
+
+To cut agent token use, pack the useful parts of the repo into one file:
+
+```bash
+npm run context            # → repomix-output.md
+npm run context:compress   # smaller (structure-focused)
+```
+
+Or in Cursor: `/repo-context`. Config: `repomix.config.json` (ignores `node_modules`, lockfile, archived changes, screenshots). Output is gitignored.
+
+**`/from-jira` and `/auto-heal` always regenerate the pack** (`npm run context`) first, so intake and pipeline heal runs use fresh repo details without re-scanning the tree. Use `/repo-context` for ad-hoc regenerates mid-flow.
 
 ### Cypress MCP
 

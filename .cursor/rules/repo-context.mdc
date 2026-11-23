@@ -1,0 +1,14 @@
+---
+description: Prefer Repomix packed context over full-repo exploration to save tokens
+alwaysApply: true
+---
+
+# Repo context (token savings)
+
+When you need **orientation** (layout, where App Actions / ui-map / OpenSpec / commands live):
+
+1. **`/from-jira` and `/auto-heal` always regenerate first** — run `npm run context`, then read `repomix-output.md` before ticket mapping or heal triage (see those commands’ Step 0). Do not skip this — especially on pipeline-failure heals.
+2. Otherwise, if `repomix-output.md` exists, **read that first** instead of broad Glob/Grep sweeps.
+3. If it is missing or clearly stale outside those flows, run `npm run context` (or `/repo-context`), then read the new pack.
+4. For concrete edits, open the real source file path and patch there — the pack is for context, not the source of truth.
+5. Prefer `npm run context:compress` only when the full pack is too large for the turn.

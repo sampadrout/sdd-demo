@@ -19,6 +19,9 @@ cypress.env.json
 # Generated asset catalog
 openspec/asset-map.md
 
+# Repomix AI context packs (regenerate with npm run context)
+repomix-output.*
+
 # IDE
 .idea/
 .vscode/*

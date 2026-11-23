@@ -1,0 +1,49 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "output": {
+    "filePath": "repomix-output.md",
+    "style": "markdown",
+    "fileSummary": true,
+    "directoryStructure": true,
+    "removeEmptyLines": true,
+    "truncateBase64": true,
+    "topFilesLength": 10,
+    "headerText": "sdd-demo packed context for AI agents. Prefer this file over scanning the repo. Edit real source files; regenerate with `npm run context` after material changes.",
+    "instructionFilePath": "docs/repomix-agent-instructions.md"
+  },
+  "include": [
+    "README.md",
+    "package.json",
+    "tsconfig.json",
+    "cypress.config.ts",
+    "cypress/**/*.ts",
+    "cypress/fixtures/**/*.json",
+    "libs/**/*.ts",
+    "openspec/config.yaml",
+    "openspec/specs/**/*.md",
+    "openspec/changes/**/*.{md,yaml,yml}",
+    ".cursor/rules/**/*",
+    ".cursor/commands/**/*",
+    ".cursor/skills/**/*",
+    "docs/**/*.md"
+  ],
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.DS_Store",
+      "package-lock.json",
+      "repomix-output.*",
+      "openspec/changes/archive/**",
+      ".cursor/mcp.json",
+      "cypress/videos/**",
+      "cypress/screenshots/**",
+      "cypress/downloads/**"
+    ]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  }
+}
