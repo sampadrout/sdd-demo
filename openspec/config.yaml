@@ -3,6 +3,7 @@ schema: spec-driven
 context: |
   PROJECT: sdd-demo — Cypress E2E automation demo for Spec-Driven Development.
   Application under test: ParaBank (https://parabank.parasoft.com/parabank), a public demo online bank.
+  Jira: https://sampadrout.atlassian.net — project sdd-demo (SDD). Sample ticket SDD-1 (transfer funds).
 
   GOAL: requirements-driven automation, not click-driven automation.
   A test exists to verify a business requirement that traces to a ticket / demo AC.

@@ -50,9 +50,13 @@ npx cypress install
 npm run cy:run
 ```
 
-## Sample journey (DEMO-1)
+## Sample journey ([SDD-1](https://sampadrout.atlassian.net/browse/SDD-1))
 
-`S-1–S-4` registers a unique customer (Faker), opens **Transfer Funds**, submits a transfer, and asserts **Transfer Complete!**.
+Jira project **sdd-demo** (`SDD`) on https://sampadrout.atlassian.net holds the requirements.
+
+`S-1–S-4` registers a unique customer (Faker), opens **Transfer Funds**, submits a transfer, and asserts **Transfer Complete!** — tagged `@jira SDD-1` in `cypress/e2e/transfer-funds.cy.ts`.
+
+Demo intake: `/from-jira SDD-1`
 
 ## OpenSpec workflow
 

@@ -1,4 +1,4 @@
-# Proposal: DEMO-1 ParaBank transfer-funds journey
+# Proposal: SDD-1 ParaBank transfer-funds journey
 
 ## Why
 

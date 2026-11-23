@@ -4,7 +4,7 @@ import { accounts } from '../../libs/actions/src/lib/features/accounts/main';
 import { transferFunds } from '../../libs/actions/src/lib/features/transfer-funds/main';
 
 /**
- * @jira DEMO-1
+ * @jira SDD-1
  * @spec S-1
  * @spec S-2
  * @spec S-3

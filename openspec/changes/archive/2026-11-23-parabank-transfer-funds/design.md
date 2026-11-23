@@ -1,4 +1,4 @@
-# Design: DEMO-1 ParaBank transfer funds
+# Design: SDD-1 ParaBank transfer funds
 
 ## Target
 

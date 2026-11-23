@@ -12,6 +12,9 @@ cypress/downloads/
 
 # Local secrets (demo credentials live in fixtures; use env for real projects)
 cypress.env.json
+.env
+.jira-demo-key
+
 
 # Generated asset catalog
 openspec/asset-map.md
