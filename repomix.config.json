@@ -25,6 +25,7 @@
     ".cursor/rules/**/*",
     ".cursor/commands/**/*",
     ".cursor/skills/**/*",
+    ".agents/skills/**/*",
     "docs/**/*.md"
   ],
   "ignore": {

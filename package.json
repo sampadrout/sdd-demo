@@ -12,8 +12,8 @@
     "context:compress": "npx --yes repomix@latest --compress"
   },
   "devDependencies": {
-    "@fission-ai/openspec": "^1.3.1",
     "@faker-js/faker": "^9.6.0",
+    "@fission-ai/openspec": "~2.2.0",
     "cypress": "^15.15.0",
     "typescript": "^5.8.2"
   }

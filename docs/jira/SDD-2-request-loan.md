@@ -18,6 +18,6 @@
 ```text
 /from-jira SDD-2
 /discover-selectors /requestloan.htm "Request Loan form"
-/opsx:apply
-/opsx:archive
+/openspec-apply-change
+/openspec-archive-change
 ```

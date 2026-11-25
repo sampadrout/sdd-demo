@@ -3,10 +3,10 @@
 **Usage:**
 - `/auto-heal` — heal the active change’s journey spec (infer from context / open change)
 - `/auto-heal <spec-path>` — heal a specific spec (e.g. `cypress/e2e/request-loan.cy.ts`)
-- `/auto-heal --after-apply` — same as default; intended to be invoked right after `/opsx:apply`
+- `/auto-heal --after-apply` — same as default; intended to be invoked right after `/openspec-apply-change`
 - `/auto-heal --triage-only` — diagnose only; do not edit code
 
-**When to run:** Optionally after `/opsx:apply`, on local Cypress failures, or to fix **pipeline** failures. Not required for archive if the journey is already green.
+**When to run:** Optionally after `/openspec-apply-change`, on local Cypress failures, or to fix **pipeline** failures. Not required for archive if the journey is already green.
 
 > Uses the local Cypress MCP (`Documents/Cypress_MCP` via `.cursor/mcp.json`). Prefer MCP tools over raw `npx cypress run` when available.
 
@@ -36,7 +36,7 @@ If `npm run context` fails, stop and report the error — do not heal against a 
 ### Step 3 — Run
 - `cypress_run` (or `cypress_run_current`) for the target spec.
 - Pipeline / CI: if the user pasted a failure log or CI URL summary, use that as the first triage signal, then still re-run locally (or via MCP) to confirm before editing.
-- If **all green** → report success and stop. Suggest `/opsx:archive` when the change is complete.
+- If **all green** → report success and stop. Suggest `/openspec-archive-change` when the change is complete.
 
 ### Step 4 — Triage (always before editing)
 1. `cypress_get_failures` — error, stack, failing selector/command, screenshot paths.
@@ -75,16 +75,16 @@ Classify and fix **one change per attempt**, then re-run:
 - Flaky (not healed): <list>
 - Bailed (needs human): <list + one-line why>
 - Final run: pass | fail
-- Next: `/opsx:archive` (if green) | re-run `/discover-selectors` | manual triage
+- Next: `/openspec-archive-change` (if green) | re-run `/discover-selectors` | manual triage
 ```
 
 ## Relationship to other commands
 
 ```text
-/from-jira → /discover-selectors → /opsx:apply → [/auto-heal] → /opsx:archive
+/from-jira → /discover-selectors → /openspec-apply-change → [/auto-heal] → /openspec-archive-change
 # also: pipeline red → /auto-heal <spec>
 ```
 
-- `/opsx:apply` may offer `/auto-heal` when implementation finishes or when a verification run fails.
+- `/openspec-apply-change` may offer `/auto-heal` when implementation finishes or when a verification run fails.
 - `/auto-heal` is **optional** — skip if Cypress is already green.
 - Like `/from-jira`, heal **always** refreshes Repomix first so pipeline triage does not burn tokens re-reading the tree.

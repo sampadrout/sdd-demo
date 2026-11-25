@@ -43,5 +43,5 @@ npx openspec new change "<kebab-name-from-ticket>"
 Fill proposal / design / specs / tasks (OpenSpec instructions). Design must note discovery pages and reuse of existing App Actions (`auth`, `accounts`, …).
 
 ### Step 5 — Hand off
-Next: `/discover-selectors …` → `/opsx:apply` → run Cypress → optional `/auto-heal` on failure → `/opsx:archive`.  
+Next: `/discover-selectors …` → `/openspec-apply-change` → run Cypress → optional `/auto-heal` on failure → `/openspec-archive-change`.  
 (Optional: `/repo-context` again after apply if you want the pack to include the new change artifacts.)

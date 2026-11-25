@@ -11,10 +11,10 @@ OpenSpec (`@fission-ai/openspec`) + Cypress. Use:
 |---|---|
 | `/from-jira <KEY>` | Intake — ticket → OpenSpec change + `S-<n>` |
 | `/discover-selectors <url> "<thing>"` | Live selector discovery (Cypress MCP) |
-| `/opsx:propose` | Start a change without Jira (optional) |
-| `/opsx:explore` | Think through unclear requirements |
-| `/opsx:apply` | Implement App Actions, selectors, tests |
-| `/opsx:archive` | Finalize and merge specs into source of truth |
+| `/openspec-propose` | Start a change without Jira (optional) |
+| `/openspec-explore` | Think through unclear requirements |
+| `/openspec-apply-change` | Implement App Actions, selectors, tests |
+| `/openspec-archive-change` | Finalize and merge specs into source of truth |
 
 ## 2. Core principles
 
@@ -53,3 +53,25 @@ describe('Transfer Funds', () => {
 
 - **App:** ParaBank — https://parabank.parasoft.com/parabank
 - Public demo bank (Parasoft). Prefer registering a unique user per run when the shared `john`/`demo` account is unstable.
+
+## 6. Applying a change (`openspec-apply-change`)
+
+Project-specific guidance carried over from the pre-2.0 customized apply skill. OpenSpec overwrites
+built-in skills on `openspec update`, so keep these customizations here.
+
+**When authoring a `.cy.ts`**
+
+- `S-<n>` = coverage, NOT one `it()` per AC. Structure `it()`s by the requirements' nature:
+  - **Sequential journey** (steps build on each other; state built via UI) → **one `it()`** that
+    walks the journey and asserts each `S-<n>` outcome inline with `cy.log('S-<n> ...')`; title spans
+    the range (`S-1–S-10 ...`) and the JSDoc lists every `@spec S-<n>`.
+  - **Independent facets** (independent checks over a common precondition) → **separate `it()`s**
+    sharing a `beforeEach`, with API/programmatic setup where possible.
+- Apply the **`it.only` litmus test**: every `it()` must pass when run alone; if not, fold it into the
+  journey `it()` or move its precondition into `beforeEach`.
+
+**Optional auto-heal (after apply or on failure)**
+
+- After tasks that author/update a `.cy.ts`, offer: run Cypress now, or `/auto-heal` if the run fails / user wants a heal pass.
+- Do **not** auto-start heal unless the user asked (`/auto-heal`, `/auto-heal --after-apply`) or confirmed the offer.
+- Heal flow lives in `.cursor/commands/auto-heal.md` (Cypress MCP healer tools + ui-map/App Action fixes).

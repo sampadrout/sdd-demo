@@ -18,6 +18,6 @@
 ```text
 /from-jira SDD-3
 /discover-selectors /billpay.htm "Bill Pay form"
-/opsx:apply
-/opsx:archive
+/openspec-apply-change
+/openspec-archive-change
 ```

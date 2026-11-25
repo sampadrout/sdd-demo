@@ -66,11 +66,11 @@ Demo intake: `/from-jira SDD-1`
 |---|---|
 | `/from-jira SDD-2` | Intake — fetch ticket → OpenSpec change + `S-<n>` |
 | `/discover-selectors /requestloan.htm "Request Loan form"` | Live DOM discovery → `libs/ui-map` |
-| `/opsx:propose` | (Optional) invent a change without Jira |
-| `/opsx:apply` | Implement App Actions + journey test |
+| `/openspec-propose` | (Optional) invent a change without Jira |
+| `/openspec-apply-change` | Implement App Actions + journey test |
 | `/auto-heal` | Optional — heal failing journey after apply / on Cypress failure |
-| `/opsx:archive` | Merge specs into `openspec/specs/` |
-| `/opsx:explore` | Think through unclear requirements |
+| `/openspec-archive-change` | Merge specs into `openspec/specs/` |
+| `/openspec-explore` | Think through unclear requirements |
 | `/repo-context` | Pack repo into `repomix-output.md` for cheaper agent orientation |
 
 Suggested flow for SDD-2:
@@ -78,13 +78,13 @@ Suggested flow for SDD-2:
 ```text
 /from-jira SDD-2
 /discover-selectors /requestloan.htm "loan amount, down payment, from account, submit"
-/opsx:apply
+/openspec-apply-change
 npm run cy:run -- --spec cypress/e2e/request-loan.cy.ts
 # if red: /auto-heal   (or /auto-heal cypress/e2e/request-loan.cy.ts)
-/opsx:archive
+/openspec-archive-change
 ```
 
-Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.cursor/skills/openspec-*`. Commands: `.cursor/commands/`.
+Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.agents/skills/openspec-*` (OpenSpec 2.x; replaces the old `/opsx:*` commands). Commands: `.cursor/commands/`.
 
 ### Repo context (Repomix)
 
