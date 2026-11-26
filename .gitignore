@@ -10,14 +10,9 @@ cypress/screenshots/
 cypress/downloads/
 .cypress-cache/
 
-# Local secrets (demo credentials live in fixtures; use env for real projects)
+# Local secrets (copy .env.example to .env; never commit real values)
 cypress.env.json
 .env
-.jira-demo-key
-
-
-# Generated asset catalog
-openspec/asset-map.md
 
 # Repomix AI context packs (regenerate with npm run context)
 repomix-output.*

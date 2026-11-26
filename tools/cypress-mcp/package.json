@@ -1,0 +1,42 @@
+{
+  "name": "cypress-mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for Cypress — author, run, and debug Cypress tests from an agent.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "cypress-mcp": "dist/server.js"
+  },
+  "main": "dist/server.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "fast-glob": "^3.3.2",
+    "playwright": "1.65.1",
+    "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "cypress": ">=12"
+  },
+  "peerDependenciesMeta": {
+    "cypress": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "cypress": "^16.4.0",
+    "typescript": "^5.6.3"
+  }
+}

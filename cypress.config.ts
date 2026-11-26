@@ -1,9 +1,8 @@
 import { defineConfig } from 'cypress';
 
 /**
- * Default target is the public ParaBank host (local demos / discovery).
- * CI overrides via CYPRESS_BASE_URL to a local Docker instance so GitHub
- * Actions IPs are not blocked by Cloudflare Turnstile on the public site.
+ * Target is the public ParaBank host. Override with CYPRESS_BASE_URL (or BASE_URL)
+ * to point at a different deployment.
  */
 const baseUrl =
   process.env.CYPRESS_BASE_URL ||

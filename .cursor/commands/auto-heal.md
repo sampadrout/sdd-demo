@@ -8,7 +8,7 @@
 
 **When to run:** Optionally after `/openspec-apply-change`, on local Cypress failures, or to fix **pipeline** failures. Not required for archive if the journey is already green.
 
-> Uses the local Cypress MCP (`Documents/Cypress_MCP` via `.cursor/mcp.json`). Prefer MCP tools over raw `npx cypress run` when available.
+> Uses the in-repo Cypress MCP (`tools/cypress-mcp/` via `.cursor/mcp.json`; build with `npm run mcp:setup`). Prefer MCP tools over raw `npx cypress run` when available.
 
 ## Agent instructions
 

@@ -24,9 +24,15 @@ No Page Object Model. Tests call business intent (`transferFunds.transfer()`), n
 
 ## Quick start
 
+One command after cloning, on macOS or Windows. The only thing you install yourself is [Node.js 20+](https://nodejs.org/) (the installer includes npm).
+
 ```bash
-npm ci
-npx cypress install
+npm run setup
+```
+
+That installs repo dependencies from `package.json`, the Cypress binary, the Cypress MCP server, Playwright Chromium, refreshes the OpenSpec skills, and creates your local `.env` from `.env.example` (gitignored; add your own keys there). Then reload Cursor and run the sample journey:
+
+```bash
 npm run cy:run
 ```
 
@@ -58,14 +64,16 @@ Jira project **sdd-demo** (`SDD`) on https://sampadrout.atlassian.net holds the 
 
 Demo intake: `/from-jira SDD-1`
 
-**Practice ticket (not yet automated):** [SDD-2](https://sampadrout.atlassian.net/browse/SDD-2) — Request Loan journey.
+**Also automated:** [SDD-2](https://sampadrout.atlassian.net/browse/SDD-2) — Request Loan journey (`cypress/e2e/request-loan.cy.ts`).
+
+**Practice ticket (not yet automated):** [SDD-3](https://sampadrout.atlassian.net/browse/SDD-3) — Bill Pay journey (`docs/jira/SDD-3-bill-pay.md`).
 
 ## OpenSpec / SDD commands (Cursor)
 
 | Command | Purpose |
 |---|---|
-| `/from-jira SDD-2` | Intake — fetch ticket → OpenSpec change + `S-<n>` |
-| `/discover-selectors /requestloan.htm "Request Loan form"` | Live DOM discovery → `libs/ui-map` |
+| `/from-jira SDD-3` | Intake — fetch ticket → OpenSpec change + `S-<n>` |
+| `/discover-selectors /billpay.htm "Bill Pay form"` | Live DOM discovery → `libs/ui-map` |
 | `/openspec-propose` | (Optional) invent a change without Jira |
 | `/openspec-apply-change` | Implement App Actions + journey test |
 | `/auto-heal` | Optional — heal failing journey after apply / on Cypress failure |
@@ -73,18 +81,18 @@ Demo intake: `/from-jira SDD-1`
 | `/openspec-explore` | Think through unclear requirements |
 | `/repo-context` | Pack repo into `repomix-output.md` for cheaper agent orientation |
 
-Suggested flow for SDD-2:
+Suggested flow for SDD-3:
 
 ```text
-/from-jira SDD-2
-/discover-selectors /requestloan.htm "loan amount, down payment, from account, submit"
+/from-jira SDD-3
+/discover-selectors /billpay.htm "payee details, amount, from account, submit"
 /openspec-apply-change
-npm run cy:run -- --spec cypress/e2e/request-loan.cy.ts
-# if red: /auto-heal   (or /auto-heal cypress/e2e/request-loan.cy.ts)
+npm run cy:run -- --spec cypress/e2e/bill-pay.cy.ts
+# if red: /auto-heal   (or /auto-heal cypress/e2e/bill-pay.cy.ts)
 /openspec-archive-change
 ```
 
-Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.agents/skills/openspec-*` (OpenSpec 2.x; replaces the old `/opsx:*` commands). Commands: `.cursor/commands/`.
+Cursor rules: `.cursor/rules/spec-driven.mdc`. Skills: `.agents/skills/openspec-*` (OpenSpec 2.x). Commands: `.cursor/commands/`.
 
 ### Repo context (Repomix)
 
@@ -101,15 +109,21 @@ Or in Cursor: `/repo-context`. Config: `repomix.config.json` (ignores `node_modu
 
 ### Cypress MCP
 
-`.cursor/mcp.json` points at the local Cypress MCP (not an npm package):
+`npm run setup` builds this for you. The server lives at `tools/cypress-mcp/` and `.cursor/mcp.json` starts `${workspaceFolder}/tools/cypress-mcp/dist/server.js`.
 
-```text
-/Users/sampadrout/Documents/Cypress_MCP/dist/server.js
+```bash
+npm run mcp:setup   # MCP only: install, build, Playwright Chromium
+npm run mcp:build   # rebuild after editing tools/cypress-mcp/src
 ```
 
-If MCP fails to start, confirm that path exists, then reload Cursor MCP / the window.
-
+Then reload Cursor MCP / the window. See `tools/cypress-mcp/README.md` for the tool reference.
 
 ## Why ParaBank?
 
 Public, always-on bank demo with real multi-step journeys (login → transfer → confirmation) that map cleanly to ticket ACs — without VPN or product credentials.
+
+## How to run cypress tests
+
+```bash
+npx cypress open --e2e --browser chrome
+```

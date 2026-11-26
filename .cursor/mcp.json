@@ -2,7 +2,7 @@
   "mcpServers": {
     "cypress": {
       "command": "node",
-      "args": ["/Users/sampadrout/Documents/Cypress_MCP/dist/server.js"]
+      "args": ["${workspaceFolder}/tools/cypress-mcp/dist/server.js"]
     }
   }
 }

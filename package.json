@@ -3,18 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "description": "Spec-Driven Development demo — Cypress + OpenSpec against ParaBank",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
+    "setup": "node scripts/setup.mjs",
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run --e2e --browser chrome",
     "test": "npm run cy:run",
     "openspec": "openspec",
     "context": "npx --yes repomix@latest",
-    "context:compress": "npx --yes repomix@latest --compress"
+    "context:compress": "npx --yes repomix@latest --compress",
+    "mcp:setup": "npm --prefix tools/cypress-mcp ci && npm --prefix tools/cypress-mcp run build && npx --prefix tools/cypress-mcp playwright install chromium",
+    "mcp:build": "npm --prefix tools/cypress-mcp run build"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",
     "@fission-ai/openspec": "~2.2.0",
-    "cypress": "^16.3.0",
+    "cypress": "^16.4.0",
     "typescript": "^5.8.2"
   }
 }

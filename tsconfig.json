@@ -8,12 +8,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "types": ["cypress", "node"],
-    "baseUrl": ".",
-    "paths": {
-      "@actions/*": ["libs/actions/src/lib/*"],
-      "@ui-map/*": ["libs/ui-map/src/lib/*"]
-    }
+    "types": ["cypress", "node"]
   },
   "include": ["cypress/**/*.ts", "libs/**/*.ts", "cypress.config.ts"]
 }
