@@ -19,10 +19,10 @@ context: |
   Tests express business intent (e.g. transferFunds.transfer()), never raw cy.get/click.
 
   WHERE THINGS LIVE:
-  - App Actions:  libs/actions/src/lib/features/<feature>/main.ts
-  - Selectors:    libs/ui-map/src/lib/<area>.selectors.ts  (selectors live ONLY here)
-  - Specs:        cypress/e2e/**/*.cy.ts
-  - Fixtures:     cypress/fixtures/
+  - App Actions:  libs/parabank-actions/src/lib/features/<feature>/main.ts
+  - Selectors:    libs/parabank-ui-map/src/lib/<area>.selectors.ts  (selectors live ONLY here)
+  - Specs:        apps/parabank/cypress/e2e/**/*.cy.ts
+  - Fixtures:     apps/parabank/cypress/fixtures/
 
   SELECTORS: never guessed. Discover against the live app. Prefer name/id/role over brittle CSS.
   TRACEABILITY: every .cy.ts carries @jira / @spec tags; every it(...) title begins with S-<n>.

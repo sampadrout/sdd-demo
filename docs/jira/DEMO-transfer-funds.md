@@ -25,4 +25,4 @@ ParaBank: customer can transfer funds between accounts
 /from-jira SDD-1
 ```
 
-Traceability lives on the Cypress journey: `cypress/e2e/transfer-funds.cy.ts` (`@jira SDD-1`, `@spec S-1`–`S-4`).
+Traceability lives on the Cypress journey: `apps/parabank/cypress/e2e/transfer-funds.cy.ts` (`@jira SDD-1`, `@spec S-1`–`S-4`).

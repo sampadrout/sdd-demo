@@ -2,8 +2,19 @@ import { createRequire } from "node:module";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+/**
+ * Default project when a tool is called without `projectRoot`.
+ * Set MCP_CYPRESS_PROJECT_ROOT to the Cypress app folder (for example apps/parabank).
+ * Falls back to the current working directory.
+ */
+export function defaultProjectRoot(): string {
+  return process.env.MCP_CYPRESS_PROJECT_ROOT
+    ? path.resolve(process.env.MCP_CYPRESS_PROJECT_ROOT)
+    : process.cwd();
+}
+
 export function resolveProjectRoot(input?: string): string {
-  if (!input) return process.cwd();
+  if (!input) return defaultProjectRoot();
   return path.isAbsolute(input) ? input : path.resolve(process.cwd(), input);
 }
 

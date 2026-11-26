@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "types": ["cypress", "node"]
   },
-  "include": ["cypress/**/*.ts", "libs/**/*.ts", "cypress.config.ts"]
+  "files": []
 }

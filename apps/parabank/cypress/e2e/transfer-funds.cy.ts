@@ -1,7 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { auth } from '../../libs/actions/src/lib/features/auth/main';
-import { accounts } from '../../libs/actions/src/lib/features/accounts/main';
-import { transferFunds } from '../../libs/actions/src/lib/features/transfer-funds/main';
+import { auth, accounts, transferFunds } from '@sdd/parabank-actions';
 
 /**
  * @jira SDD-1

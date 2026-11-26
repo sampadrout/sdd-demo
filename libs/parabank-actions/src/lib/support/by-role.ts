@@ -1,4 +1,4 @@
-import type { RoleTarget } from '../../../../ui-map/src/lib/parabank.roles';
+import type { RoleTarget } from '@sdd/parabank-ui-map';
 
 /**
  * Thin wrapper over `cy.getByRole()` (Cypress 16.2+) for ui-map role targets.

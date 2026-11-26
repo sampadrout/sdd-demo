@@ -6,19 +6,25 @@
   "engines": {
     "node": "^22.0.0 || ^24.0.0 || >=26.0.0"
   },
+  "workspaces": [
+    "apps/*",
+    "libs/*",
+    "tools/cypress-mcp"
+  ],
   "scripts": {
     "setup": "node scripts/setup.mjs",
-    "cy:open": "cypress open --e2e --browser chrome",
-    "cy:run": "cypress run --e2e --browser chrome",
-    "cy:agent": "cypress open --e2e --browser chrome --headless",
-    "cy:tap": "cypress tap",
+    "cy:open": "npm run cy:open -w @sdd/parabank-e2e --",
+    "cy:run": "npm run cy:run -w @sdd/parabank-e2e --",
+    "cy:agent": "npm run cy:agent -w @sdd/parabank-e2e --",
+    "cy:tap": "npm run cy:tap -w @sdd/parabank-e2e --",
     "cy:run:parallel": "node scripts/cy-parallel.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run cy:run",
     "openspec": "openspec",
     "context": "npx --yes repomix@latest",
     "context:compress": "npx --yes repomix@latest --compress",
-    "mcp:setup": "npm --prefix tools/cypress-mcp ci && npm --prefix tools/cypress-mcp run build && npx --prefix tools/cypress-mcp playwright install chromium",
-    "mcp:build": "npm --prefix tools/cypress-mcp run build"
+    "mcp:setup": "npm run build -w cypress-mcp && npm exec -w cypress-mcp -- playwright install chromium",
+    "mcp:build": "npm run build -w cypress-mcp"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",

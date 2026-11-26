@@ -1,0 +1,8 @@
+{
+  "name": "@sdd/parabank-ui-map",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ParaBank selectors and role-based locators (single source of truth for ParaBank UI targets)",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts"
+}

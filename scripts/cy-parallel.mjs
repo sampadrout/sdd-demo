@@ -5,7 +5,7 @@
  */
 import { spawn } from 'node:child_process';
 import { readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import { cpus } from 'node:os';
 
 const args = process.argv.slice(2);
@@ -14,6 +14,8 @@ const opt = (name, def) =>
 
 const workers = Math.max(1, Number(opt('workers', Math.min(4, cpus().length))));
 const browser = opt('browser', 'chrome');
+// The ParaBank Cypress project. Specs run from inside it, so paths are project-relative.
+const project = opt('project', 'apps/parabank');
 
 function findSpecs(dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -23,13 +25,15 @@ function findSpecs(dir) {
   });
 }
 
-const specs = findSpecs('cypress/e2e').sort();
+const specs = findSpecs(join(project, 'cypress/e2e'))
+  .map((p) => relative(project, p))
+  .sort();
 if (!specs.length) {
-  console.error('No specs found under cypress/e2e');
+  console.error(`No specs found under ${project}/cypress/e2e`);
   process.exit(1);
 }
 
-console.log(`Running ${specs.length} spec(s) with ${workers} worker(s)\n`);
+console.log(`Running ${specs.length} spec(s) in ${project} with ${workers} worker(s)\n`);
 
 const runSpec = (spec) =>
   new Promise((resolve) => {
@@ -37,7 +41,7 @@ const runSpec = (spec) =>
     const child = spawn(
       'npx',
       ['cypress', 'run', '--e2e', '--browser', browser, '--spec', spec],
-      { env: process.env },
+      { env: process.env, cwd: project },
     );
     child.stdout.on('data', (d) => out.push(d));
     child.stderr.on('data', (d) => out.push(d));

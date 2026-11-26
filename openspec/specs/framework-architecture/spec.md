@@ -23,7 +23,7 @@ The framework SHALL NOT use the Page Object Model.
 - **AND** no `*.page.ts` Page Object class is introduced
 
 ### Requirement: Selectors are encapsulated
-Selectors SHALL live only in `libs/ui-map`. Tests SHALL NOT contain selector literals.
+Selectors SHALL live only in the app's `libs/<app>-ui-map`. Tests SHALL NOT contain selector literals.
 
 #### Scenario: Test contains no selectors
 - **WHEN** reviewing a `.cy.ts` file

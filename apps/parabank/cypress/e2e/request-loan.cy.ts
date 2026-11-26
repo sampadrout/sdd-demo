@@ -1,7 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { auth } from '../../libs/actions/src/lib/features/auth/main';
-import { accounts } from '../../libs/actions/src/lib/features/accounts/main';
-import { requestLoan } from '../../libs/actions/src/lib/features/request-loan/main';
+import { auth, accounts, requestLoan } from '@sdd/parabank-actions';
 
 /**
  * @jira SDD-2

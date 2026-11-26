@@ -1,0 +1,11 @@
+{
+  "name": "@sdd/parabank-actions",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ParaBank App Actions: business-intent steps for the ParaBank journeys",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@sdd/parabank-ui-map": "*"
+  }
+}

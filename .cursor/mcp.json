@@ -2,7 +2,10 @@
   "mcpServers": {
     "cypress": {
       "command": "node",
-      "args": ["${workspaceFolder}/tools/cypress-mcp/dist/server.js"]
+      "args": ["${workspaceFolder}/tools/cypress-mcp/dist/server.js"],
+      "env": {
+        "MCP_CYPRESS_PROJECT_ROOT": "${workspaceFolder}/apps/parabank"
+      }
     }
   }
 }

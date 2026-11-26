@@ -15,9 +15,9 @@
     "README.md",
     "package.json",
     "tsconfig.json",
-    "cypress.config.ts",
-    "cypress/**/*.ts",
-    "cypress/fixtures/**/*.json",
+    "apps/*/cypress.config.ts",
+    "apps/*/cypress/**/*.ts",
+    "apps/*/cypress/fixtures/**/*.json",
     "libs/**/*.ts",
     "openspec/config.yaml",
     "openspec/specs/**/*.md",
@@ -39,9 +39,9 @@
       "repomix-output.*",
       "openspec/changes/archive/**",
       ".cursor/mcp.json",
-      "cypress/videos/**",
-      "cypress/screenshots/**",
-      "cypress/downloads/**"
+      "apps/*/cypress/videos/**",
+      "apps/*/cypress/screenshots/**",
+      "apps/*/cypress/downloads/**"
     ]
   },
   "security": {

@@ -10,19 +10,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Discover specs so new *.cy.ts files get their own parallel job automatically.
+  # Discover specs in every app (apps/<app>/cypress/e2e) so new *.cy.ts files
+  # get their own parallel job automatically. Each entry carries its project
+  # (apps/<app>) so the job runs against the right app's config and libs.
   discover:
     name: Discover specs
     runs-on: ubuntu-latest
     outputs:
-      specs: ${{ steps.list.outputs.specs }}
+      matrix: ${{ steps.list.outputs.matrix }}
     steps:
       - uses: actions/checkout@v7
       - id: list
         run: |
-          specs=$(find cypress/e2e -name '*.cy.ts' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "specs=$specs" >> "$GITHUB_OUTPUT"
-          echo "Discovered: $specs"
+          matrix=$(find apps/*/cypress/e2e -name '*.cy.ts' | sort | jq -R -s -c '{include: (split("\n") | map(select(length > 0)) | map({spec: ., project: (split("/") | .[0:2] | join("/"))}))}')
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "Discovered: $matrix"
 
   e2e:
     name: e2e (${{ matrix.spec }})
@@ -31,8 +33,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       fail-fast: false
-      matrix:
-        spec: ${{ fromJson(needs.discover.outputs.specs) }}
+      matrix: ${{ fromJson(needs.discover.outputs.matrix) }}
 
     steps:
       - name: Checkout
@@ -48,15 +49,16 @@ jobs:
         uses: cypress-io/github-action@v7
         with:
           browser: chrome
+          project: ${{ matrix.project }}
           spec: ${{ matrix.spec }}
-        env:
-          CYPRESS_BASE_URL: https://parabank.parasoft.com/parabank
+        # No CYPRESS_BASE_URL here: each app's cypress.config.ts sets its own
+        # default. A global value would repoint every app in the matrix.
 
       - name: Upload screenshots on failure
         if: failure()
         uses: actions/upload-artifact@v7
         with:
           name: cypress-screenshots-${{ strategy.job-index }}
-          path: cypress/screenshots
+          path: apps/*/cypress/screenshots
           if-no-files-found: ignore
           retention-days: 7

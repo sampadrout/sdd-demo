@@ -1,0 +1,16 @@
+{
+  "name": "@sdd/parabank-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cypress suite for ParaBank (the public demo bank)",
+  "scripts": {
+    "cy:open": "cypress open --e2e --browser chrome",
+    "cy:run": "cypress run --e2e --browser chrome",
+    "cy:agent": "cypress open --e2e --browser chrome --headless",
+    "cy:tap": "cypress tap",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sdd/parabank-actions": "*"
+  }
+}

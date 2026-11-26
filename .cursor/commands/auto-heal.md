@@ -2,7 +2,7 @@
 
 **Usage:**
 - `/auto-heal` — heal the active change’s journey spec (infer from context / open change)
-- `/auto-heal <spec-path>` — heal a specific spec (e.g. `cypress/e2e/request-loan.cy.ts`)
+- `/auto-heal <spec-path>` — heal a specific spec (e.g. `apps/parabank/cypress/e2e/request-loan.cy.ts`)
 - `/auto-heal --after-apply` — same as default; intended to be invoked right after `/openspec-apply-change`
 - `/auto-heal --triage-only` — diagnose only; do not edit code
 
@@ -26,7 +26,7 @@ If `npm run context` fails, stop and report the error — do not heal against a 
 
 ### Step 1 — Resolve target
 1. If `<spec-path>` given → use it.
-2. Else infer from the active OpenSpec change / pack / conversation: `cypress/e2e/*.cy.ts` and change `tasks.md` / design.
+2. Else infer from the active OpenSpec change / pack / conversation: `apps/<app>/cypress/e2e/*.cy.ts` and change `tasks.md` / design.
 3. If still ambiguous, ask which spec to heal.
 4. Announce: `Healing: <spec>` and `mode: triage-only | heal` (`maxAttempts` default **3**).
 
@@ -52,14 +52,14 @@ If `npm run context` fails, stop and report the error — do not heal against a 
    - **flaky** → do **not** auto-edit; report flake and stop heal loop for that test.
    - **always-fails** → continue to repair.
 3. Optionally: `cypress_get_dom_snapshot`, `cypress_get_screenshot`, console/network tools for context.
-4. Use the pack to locate the failing selector’s home (`libs/ui-map` vs App Action vs spec) — do not re-walk the repo.
+4. Use the pack to locate the failing selector’s home (the app's `libs/<app>-ui-map` vs App Action vs spec) — do not re-walk the repo.
 
 ### Step 5 — Repair (skip if `--triage-only`)
 Classify and fix **one change per attempt**, then re-run:
 
 | Class | Action |
 |---|---|
-| Selector miss | Re-discover with `tap aria` / `tap dom` / `tap inspect` (or `cypress_suggest_selector_fix` + `cypress_live_*`). Prefer a role+name target in `libs/ui-map/src/lib/parabank.roles.ts` (`cy.getByRole`) for buttons/links; otherwise a CSS selector in `parabank.selectors.ts`. Update **`libs/ui-map`** first, then App Actions / spec. Never invent selectors. |
+| Selector miss | Re-discover with `tap aria` / `tap dom` / `tap inspect` (or `cypress_suggest_selector_fix` + `cypress_live_*`). Prefer a role+name target in `libs/parabank-ui-map/src/lib/parabank.roles.ts` (`cy.getByRole`) for buttons/links; otherwise a CSS selector in `parabank.selectors.ts`. Update the app's **`libs/<app>-ui-map`** first, then App Actions / spec. Never invent selectors. |
 | Timing | Prefer assertion retries / `cy.wait('@alias')` / element visibility — **never** bare `cy.wait(ms)` as a heal. |
 | Assertion mismatch | Only normalize when intent still matches the `S-<n>` outcome (from pack/OpenSpec). If actual contradicts the AC → **bail** (likely app/demo regression). |
 | Hook / setup failure | Bail — escalate; do not paper over broken auth/setup. |

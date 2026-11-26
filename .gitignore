@@ -5,9 +5,9 @@ dist/
 *.log
 
 # Cypress artefacts
-cypress/videos/
-cypress/screenshots/
-cypress/downloads/
+apps/*/cypress/videos/
+apps/*/cypress/screenshots/
+apps/*/cypress/downloads/
 .cypress-cache/
 
 # Local secrets (copy .env.example to .env; never commit real values)

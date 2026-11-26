@@ -1,4 +1,5 @@
 import path from "node:path";
+import { defaultProjectRoot } from "./util/project.js";
 
 type Session = {
   projectRoot: string;
@@ -7,7 +8,7 @@ type Session = {
 };
 
 const session: Session = {
-  projectRoot: process.cwd(),
+  projectRoot: defaultProjectRoot(),
   currentSpec: null,
   openProcess: null,
 };

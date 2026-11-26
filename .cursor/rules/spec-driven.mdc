@@ -31,10 +31,12 @@ Test → Feature / App Action → Command → UI/API → Application
 
 | Layer | Location |
 |---|---|
-| Tests | `cypress/e2e/**/*.cy.ts` |
-| App Actions | `libs/actions/src/lib/features/<feature>/main.ts` |
-| Selectors | `libs/ui-map/src/lib/*.selectors.ts` (CSS) and `*.roles.ts` (`cy.getByRole` role + name; preferred for buttons/links) |
-| Fixtures | `cypress/fixtures/` |
+| Tests | `apps/<app>/cypress/e2e/**/*.cy.ts` (ParaBank: `apps/parabank/`) |
+| App Actions | `libs/<app>-actions/src/lib/features/<feature>/main.ts` (ParaBank: `libs/parabank-actions/`) |
+| Selectors | `libs/<app>-ui-map/src/lib/*.selectors.ts` (CSS) and `*.roles.ts` (`cy.getByRole` role + name; preferred for buttons/links) |
+| Fixtures | `apps/<app>/cypress/fixtures/` |
+
+Each application has its own Cypress project and libs. See `docs/adding-a-new-app.md`. Never import across apps.
 
 ## 4. Traceability tags
 

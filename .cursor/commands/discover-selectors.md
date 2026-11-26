@@ -12,8 +12,8 @@ Runtime-discovery step (see `runtime-discovery` + `locator-governance` specs). *
 ## Agent instructions
 
 ### Step 1 — Search existing assets first
-- Selectors: `libs/ui-map/src/lib/*.selectors.ts`
-- App Actions: `libs/actions/src/lib/features/`
+- Selectors: `libs/parabank-ui-map/src/lib/*.selectors.ts` (ParaBank; for another app use its `libs/<app>-ui-map`)
+- App Actions: `libs/parabank-actions/src/lib/features/` (ParaBank; for another app use its `libs/<app>-actions`)
 Reuse equivalents; note gaps only.
 
 ### Step 2 — Discover via Cypress MCP (primary)
@@ -24,8 +24,8 @@ Reuse equivalents; note gaps only.
 3. Register or log in (prefer unique Faker registration — shared `john`/`demo` can be flaky).
 4. Navigate to `<screen-url>` and reveal `<component-description>`.
 5. Use `cypress_live_discover_interactive` / `cypress_live_discover_forms` / `cypress_live_pick_locator`.
-6. **Prefer role + accessible name** (`cy.getByRole`, Cypress 16.2+) for native buttons, links, and headings — record as `{ role, name }` in `libs/ui-map/src/lib/parabank.roles.ts` and call via `byRole()` (`libs/actions/src/lib/support/by-role.ts`).
-7. Otherwise (inputs without labels, containers) prefer stable `name` / `id` over brittle CSS and store in `parabank.selectors.ts`. Store in `libs/ui-map` only.
+6. **Prefer role + accessible name** (`cy.getByRole`, Cypress 16.2+) for native buttons, links, and headings — record as `{ role, name }` in `libs/parabank-ui-map/src/lib/parabank.roles.ts` and call via `byRole()` (`libs/parabank-actions/src/lib/support/by-role.ts`).
+7. Otherwise (inputs without labels, containers) prefer stable `name` / `id` over brittle CSS and store in `parabank.selectors.ts`. Store in the app's `ui-map` lib only.
 
 ### Step 3 — Record
 Write confirmed selectors into the change `design.md` (runtime-discovery section) and ui-map.

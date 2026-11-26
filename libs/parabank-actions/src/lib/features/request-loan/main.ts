@@ -1,5 +1,4 @@
-import { ParaBankSelectors as S } from '../../../../../ui-map/src/lib/parabank.selectors';
-import { ParaBankRoles as R } from '../../../../../ui-map/src/lib/parabank.roles';
+import { ParaBankSelectors as S, ParaBankRoles as R } from '@sdd/parabank-ui-map';
 import { byRole } from '../../support/by-role';
 
 export type LoanRequest = {

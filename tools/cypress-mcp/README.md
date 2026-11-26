@@ -65,7 +65,7 @@ A fresh clone should run `npm run setup` once. That installs repo dependencies, 
 To rebuild only this server:
 
 ```bash
-npm run mcp:setup   # npm ci + tsc build in tools/cypress-mcp, then `playwright install chromium`
+npm run mcp:setup   # tsc build of the cypress-mcp workspace, then `playwright install chromium`
 npm run mcp:build   # rebuild only, after editing tools/cypress-mcp/src
 ```
 
@@ -185,12 +185,12 @@ In `sdd-demo` the MCP is a **tool provider for two Cursor commands**. It does no
 
 | SDD step | Cypress MCP tools | Output / rule |
 |---|---|---|
-| `/discover-selectors <url> "<thing>"` | `cypress_detect_project` → `cypress_live_launch` → `cypress_live_navigate` → (register/log in with `cypress_live_fill`/`click`) → `cypress_live_discover_interactive`, `cypress_live_discover_forms`, `cypress_live_pick_locator` | Selectors go into `libs/ui-map/src/lib/*.selectors.ts` and the change `design.md`. Never guess selectors. |
+| `/discover-selectors <url> "<thing>"` | `cypress_detect_project` → `cypress_live_launch` → `cypress_live_navigate` → (register/log in with `cypress_live_fill`/`click`) → `cypress_live_discover_interactive`, `cypress_live_discover_forms`, `cypress_live_pick_locator` | Selectors go into the app's `libs/<app>-ui-map/src/lib/*.selectors.ts` and the change `design.md`. Never guess selectors. |
 | `/auto-heal [spec]` | `cypress_detect_project`, `cypress_install_log_hooks`, `cypress_run` / `cypress_run_current`, `cypress_get_failures`, `cypress_diagnose_flake`, `cypress_get_dom_snapshot`, `cypress_get_screenshot`, `cypress_suggest_selector_fix`, console/network getters, `cypress_live_*` for re-discovery | Heals **ui-map / App Actions / spec** only, never ParaBank. Flaky = report only. Never weakens `S-<n>` assertions. Max 3 attempts. |
 | `/openspec-apply-change` | none (optionally offers `/auto-heal` when a run fails) | Authors App Actions + journey test by hand. |
 | `/from-jira`, `/openspec-*`, `/repo-context` | none | Uses Atlassian MCP, OpenSpec, Repomix. |
 
-All commands pass `projectRoot` = the `sdd-demo` repo root, so the server runs the repo's Cypress 16.4 against `cypress.config.ts` and `cypress/e2e/`.
+By default the server uses the project in `MCP_CYPRESS_PROJECT_ROOT`, which `.cursor/mcp.json` sets to `apps/parabank`. It runs that app's Cypress 16.4 against its `cypress.config.ts` and `cypress/e2e/`. For another app, pass `projectRoot` (for example `apps/acme`) on each call.
 
 ---
 
