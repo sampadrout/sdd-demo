@@ -10,10 +10,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Discover specs so new *.cy.ts files get their own parallel job automatically.
+  discover:
+    name: Discover specs
+    runs-on: ubuntu-latest
+    outputs:
+      specs: ${{ steps.list.outputs.specs }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          specs=$(find cypress/e2e -name '*.cy.ts' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "specs=$specs" >> "$GITHUB_OUTPUT"
+          echo "Discovered: $specs"
+
   e2e:
-    name: ParaBank Cypress e2e
+    name: e2e (${{ matrix.spec }})
+    needs: discover
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        spec: ${{ fromJson(needs.discover.outputs.specs) }}
 
     steps:
       - name: Checkout
@@ -29,8 +48,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          # Match cypress.config.ts specPattern — runs all journeys under e2e/
-          spec: cypress/e2e/**/*.cy.ts
+          spec: ${{ matrix.spec }}
         env:
           CYPRESS_BASE_URL: https://parabank.parasoft.com/parabank
 
@@ -38,7 +56,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ strategy.job-index }}
           path: cypress/screenshots
           if-no-files-found: ignore
           retention-days: 7

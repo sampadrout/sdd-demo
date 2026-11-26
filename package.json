@@ -10,6 +10,7 @@
     "setup": "node scripts/setup.mjs",
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run --e2e --browser chrome",
+    "cy:run:parallel": "node scripts/cy-parallel.mjs",
     "test": "npm run cy:run",
     "openspec": "openspec",
     "context": "npx --yes repomix@latest",

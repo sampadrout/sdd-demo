@@ -49,6 +49,7 @@ GitHub Actions runs the ParaBank journey on every push to `main` and on demand:
 - Workflow: `.github/workflows/cypress.yml`
 - Manual run: **Actions → Cypress → Run workflow**
 - Target: `https://parabank.parasoft.com/parabank` (`CYPRESS_BASE_URL`)
+- Parallel: a `discover` job lists every `cypress/e2e/**/*.cy.ts` file, then one `e2e` job runs per spec at the same time (see [Parallel runs](#parallel-runs))
 
 ```bash
 npm ci
@@ -122,8 +123,39 @@ Then reload Cursor MCP / the window. See `tools/cypress-mcp/README.md` for the t
 
 Public, always-on bank demo with real multi-step journeys (login → transfer → confirmation) that map cleanly to ticket ACs — without VPN or product credentials.
 
-## How to run cypress tests
+## How to run single cypress test in local
 
 ```bash
 npx cypress open --e2e --browser chrome
 ```
+
+## Parallel runs
+
+Each spec file under `cypress/e2e/` runs in its own Cypress process, and several run at once. Specs are discovered automatically, so a new `*.cy.ts` file is picked up with no config change.
+
+### Locally
+
+```bash
+npm run cy:run:parallel                       # up to 4 workers (capped at your CPU count)
+npm run cy:run:parallel -- --workers=2        # set the number of workers
+npm run cy:run:parallel -- --browser=chrome   # browser (default: chrome)
+```
+
+`scripts/cy-parallel.mjs` runs the specs through a queue of workers. Each spec's output prints as one block, so logs from different specs don't interleave. At the end it prints a pass/fail summary and exits non-zero if any spec failed.
+
+The regular `npm run cy:run` still runs every spec in one process.
+
+### In CI
+
+`.github/workflows/cypress.yml` runs in two stages:
+
+1. **`discover`** finds all `cypress/e2e/**/*.cy.ts` files and passes the list on as a job matrix.
+2. **`e2e`** runs one job per spec, all at the same time. `fail-fast` is off, so one failing spec does not cancel the others.
+
+Screenshots from a failed run are uploaded as `cypress-screenshots-<index>`, one artifact per job, kept for 7 days.
+
+### Adding a spec
+
+Add a file ending in `.cy.ts` under `cypress/e2e/`. It is picked up by both the local script and the CI matrix on the next run.
+
+Specs must not depend on each other or on a shared user. Each journey registers its own user with a timestamp and random suffix, so parallel runs don't collide on ParaBank's shared demo database.
