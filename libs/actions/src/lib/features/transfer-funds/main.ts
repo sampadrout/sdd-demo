@@ -1,4 +1,6 @@
 import { ParaBankSelectors as S } from '../../../../../ui-map/src/lib/parabank.selectors';
+import { ParaBankRoles as R } from '../../../../../ui-map/src/lib/parabank.roles';
+import { byRole } from '../../support/by-role';
 
 export type TransferRequest = {
   amount: string;
@@ -32,7 +34,7 @@ export const transferFunds = {
       });
 
     cy.get(S.transferAmountInput).clear().type(amount);
-    cy.get(S.transferSubmit).click();
+    byRole(R.transferSubmit).click();
   },
 
   assertTransferComplete(amount: string) {

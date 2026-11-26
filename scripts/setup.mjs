@@ -4,7 +4,7 @@
  *
  *   npm run setup
  *
- * Requires Node.js 20+ (npm comes with it). Everything else is installed here:
+ * Requires Node.js 22, 24, or 26+ (Cypress 16 dropped Node 20 and 25; npm comes with it). Everything else is installed here:
  * repo dependencies, the Cypress binary, the Cypress MCP server, Playwright
  * Chromium, and a refresh of the OpenSpec agent skills.
  */
@@ -40,11 +40,13 @@ function run(command, args) {
   }
 }
 
-function requireNode20() {
+function requireSupportedNode() {
   step(1, "Check Node.js");
   const major = Number(process.versions.node.split(".")[0]);
-  if (!Number.isFinite(major) || major < 20) {
-    console.error(`Node.js 20 or newer is required. This machine has ${process.version}.`);
+  // Cypress 16 supports Node 22.x, 24.x and >=26.x (Node 20 and 25 were removed).
+  const supported = major === 22 || major === 24 || major >= 26;
+  if (!Number.isFinite(major) || !supported) {
+    console.error(`Node.js 22, 24, or 26+ is required (Cypress 16). This machine has ${process.version}.`);
     console.error("Install it from https://nodejs.org/ (the LTS installer includes npm), then run: npm run setup");
     process.exit(1);
   }
@@ -104,7 +106,7 @@ Next:
 `);
 }
 
-requireNode20();
+requireSupportedNode();
 installRepo();
 installCypress();
 installMcp();

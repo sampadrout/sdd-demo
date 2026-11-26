@@ -33,7 +33,7 @@ Test → Feature / App Action → Command → UI/API → Application
 |---|---|
 | Tests | `cypress/e2e/**/*.cy.ts` |
 | App Actions | `libs/actions/src/lib/features/<feature>/main.ts` |
-| Selectors | `libs/ui-map/src/lib/*.selectors.ts` |
+| Selectors | `libs/ui-map/src/lib/*.selectors.ts` (CSS) and `*.roles.ts` (`cy.getByRole` role + name; preferred for buttons/links) |
 | Fixtures | `cypress/fixtures/` |
 
 ## 4. Traceability tags

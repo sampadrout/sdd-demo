@@ -6,7 +6,7 @@ This copy lives inside the `sdd-demo` repo at `tools/cypress-mcp/` and is wired 
 
 | Component | Version |
 |---|---|
-| Node.js | 20+ |
+| Node.js | 22, 24, 26+ |
 | Playwright (live browser, bundled in the server only) | 1.65.1 (pinned) |
 | Cypress (dev dependency for types; the server runs the **target project's** Cypress) | ^16.4.0 |
 | `@modelcontextprotocol/sdk` | ^1.0.4 |
@@ -52,7 +52,7 @@ This copy lives inside the `sdd-demo` repo at `tools/cypress-mcp/` and is wired 
 
 ### Prerequisites
 
-- **Node.js 20+** and npm 10+
+- **Node.js 22, 24, or 26+** (Cypress 16 dropped Node 20 and 25) and npm 10+
 - A Cypress project with Cypress >= 12 installed (the SDD repo root has Cypress 16.4)
 - macOS, Linux, or Windows (WSL OK)
 
@@ -60,7 +60,7 @@ Downloads outside `npm install`: Chromium (~100 MB, Playwright) and the Cypress 
 
 ### Install and build (from the `sdd-demo` repo root)
 
-A fresh clone should run `npm run setup` once. That installs repo dependencies, the Cypress binary, this MCP server, Playwright Chromium, and refreshes the OpenSpec skills. It is the same command on macOS and Windows (Node.js 20+ required).
+A fresh clone should run `npm run setup` once. That installs repo dependencies, the Cypress binary, this MCP server, Playwright Chromium, and refreshes the OpenSpec skills. It is the same command on macOS and Windows (Node.js 22, 24, or 26+ required).
 
 To rebuild only this server:
 

@@ -1,4 +1,6 @@
 import { ParaBankSelectors as S } from '../../../../../ui-map/src/lib/parabank.selectors';
+import { ParaBankRoles as R } from '../../../../../ui-map/src/lib/parabank.roles';
+import { byRole } from '../../support/by-role';
 
 export type LoanRequest = {
   amount: string;
@@ -30,7 +32,7 @@ export const requestLoan = {
 
     cy.get(S.loanAmountInput).clear().type(amount);
     cy.get(S.loanDownPaymentInput).clear().type(downPayment);
-    cy.get(S.loanApplyButton).click();
+    byRole(R.loanApplyButton).click();
   },
 
   assertDecision() {

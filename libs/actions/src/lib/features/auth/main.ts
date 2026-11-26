@@ -1,4 +1,6 @@
 import { ParaBankSelectors as S } from '../../../../../ui-map/src/lib/parabank.selectors';
+import { ParaBankRoles as R } from '../../../../../ui-map/src/lib/parabank.roles';
+import { byRole } from '../../support/by-role';
 
 export type CustomerRegistration = {
   firstName: string;
@@ -24,7 +26,7 @@ export const auth = {
   login(username: string, password: string) {
     cy.get(S.usernameInput).clear().type(username);
     cy.get(S.passwordInput).clear().type(password, { log: false });
-    cy.get(S.loginSubmit).click();
+    byRole(R.loginSubmit).click();
   },
 
   register(customer: CustomerRegistration) {
@@ -41,7 +43,34 @@ export const auth = {
     cy.get(S.registerUsernameInput).clear().type(customer.username);
     cy.get(S.registerPasswordInput).clear().type(customer.password, { log: false });
     cy.get(S.confirmPasswordInput).clear().type(customer.password, { log: false });
-    cy.get(S.registerSubmit).click();
+    byRole(R.registerSubmit).click();
+  },
+
+  /**
+   * Register once and cache the authenticated session (`cy.session`).
+   * Later calls with the same customer (a test retry, another test, or another spec
+   * in the same run via `cacheAcrossSpecs`) restore cookies instead of re-registering.
+   * Leaves the browser on the Accounts Overview. Use `register()` directly when the
+   * journey itself covers registration.
+   */
+  session(customer: CustomerRegistration) {
+    cy.session(
+      ['parabank', customer.username],
+      () => {
+        auth.register(customer);
+        auth.assertNoRegistrationError();
+        auth.assertRegistered(customer.username);
+      },
+      {
+        cacheAcrossSpecs: true,
+        validate() {
+          cy.request({ url: '/overview.htm', failOnStatusCode: false })
+            .its('body')
+            .should('include', 'Accounts Overview');
+        },
+      },
+    );
+    cy.visit('/overview.htm');
   },
 
   assertRegistered(username: string) {

@@ -17,7 +17,7 @@ jobs:
     outputs:
       specs: ${{ steps.list.outputs.specs }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: list
         run: |
           specs=$(find cypress/e2e -name '*.cy.ts' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
@@ -36,16 +36,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: npm
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           browser: chrome
           spec: ${{ matrix.spec }}
@@ -54,7 +54,7 @@ jobs:
 
       - name: Upload screenshots on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cypress-screenshots-${{ strategy.job-index }}
           path: cypress/screenshots

@@ -13,6 +13,8 @@ This is a slim showcase derived from the PlatformTests SDD constitution — not 
 | Selectors | `libs/ui-map/src/lib/parabank.selectors.ts` |
 | App Actions | `libs/actions/src/lib/features/{auth,accounts,transfer-funds}/` |
 | Journey test | `cypress/e2e/transfer-funds.cy.ts` |
+| Role-based locators | `libs/ui-map/src/lib/parabank.roles.ts` (`cy.getByRole`) |
+| Framework changes | `docs/framework-changelog.md` |
 
 Layering (only allowed direction):
 
@@ -24,7 +26,7 @@ No Page Object Model. Tests call business intent (`transferFunds.transfer()`), n
 
 ## Quick start
 
-One command after cloning, on macOS or Windows. The only thing you install yourself is [Node.js 20+](https://nodejs.org/) (the installer includes npm).
+One command after cloning, on macOS or Windows. The only thing you install yourself is [Node.js 22, 24, or 26+](https://nodejs.org/) (Cypress 16 does not support Node 20 or 25) (the installer includes npm).
 
 ```bash
 npm run setup
@@ -41,6 +43,10 @@ Open the runner:
 ```bash
 npm run cy:open
 ```
+
+Agent-driven runs (Cypress 16.4+): `npm run cy:agent` starts a headless `cypress open` session, then drive it with `npx cypress tap run <spec>`, `tap status`, `tap reporter`, `tap aria` (or `npm run cy:tap -- <subcommand>`). `/auto-heal` uses this.
+
+Framework-level changes (Cypress upgrades, conventions, tooling) are logged in [`docs/framework-changelog.md`](docs/framework-changelog.md), including whether we are on the latest Cypress.
 
 ## CI
 

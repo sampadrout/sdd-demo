@@ -4,12 +4,14 @@
   "private": true,
   "description": "Spec-Driven Development demo — Cypress + OpenSpec against ParaBank",
   "engines": {
-    "node": ">=20"
+    "node": "^22.0.0 || ^24.0.0 || >=26.0.0"
   },
   "scripts": {
     "setup": "node scripts/setup.mjs",
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run --e2e --browser chrome",
+    "cy:agent": "cypress open --e2e --browser chrome --headless",
+    "cy:tap": "cypress tap",
     "cy:run:parallel": "node scripts/cy-parallel.mjs",
     "test": "npm run cy:run",
     "openspec": "openspec",

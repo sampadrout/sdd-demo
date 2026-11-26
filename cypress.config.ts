@@ -15,6 +15,9 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.ts',
     supportFile: 'cypress/support/e2e.ts',
     video: false,
+    // Retry once in `cypress run` only: the shared public ParaBank demo is occasionally flaky.
+    // `cypress open` (and tap sessions) never retry, so local failures stay visible.
+    retries: { runMode: 1, openMode: 0 },
     screenshotOnRunFailure: true,
     defaultCommandTimeout: 15000,
     pageLoadTimeout: 60000,

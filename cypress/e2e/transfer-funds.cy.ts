@@ -35,7 +35,7 @@ describe('Transfer Funds', () => {
     // Fresh registration may show Welcome first — open overview via left nav if needed.
     cy.get('body').then(($body) => {
       if ($body.find('#accountTable').length === 0) {
-        cy.contains('#leftPanel a', 'Accounts Overview').click();
+        accounts.openOverview();
       }
     });
     accounts.assertOverviewVisible();
