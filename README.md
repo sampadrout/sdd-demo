@@ -14,7 +14,7 @@ This is a slim showcase derived from the PlatformTests SDD constitution — not 
 | App Actions | `libs/actions/src/lib/features/{auth,accounts,transfer-funds}/` |
 | Journey test | `cypress/e2e/transfer-funds.cy.ts` |
 | Role-based locators | `libs/ui-map/src/lib/parabank.roles.ts` (`cy.getByRole`) |
-| Framework changes | `docs/framework-changelog.md` |
+| Framework changes | `docs/framework-overview.md` |
 
 Layering (only allowed direction):
 
@@ -46,7 +46,7 @@ npm run cy:open
 
 Agent-driven runs (Cypress 16.4+): `npm run cy:agent` starts a headless `cypress open` session, then drive it with `npx cypress tap run <spec>`, `tap status`, `tap reporter`, `tap aria` (or `npm run cy:tap -- <subcommand>`). `/auto-heal` uses this.
 
-Framework-level changes (Cypress upgrades, conventions, tooling) are logged in [`docs/framework-changelog.md`](docs/framework-changelog.md), including whether we are on the latest Cypress.
+Framework design, how each Cypress feature is used, and the framework change log (including whether we are on the latest Cypress) live in [`docs/framework-overview.md`](docs/framework-overview.md).
 
 ## CI
 
